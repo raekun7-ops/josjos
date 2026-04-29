@@ -1,0 +1,465 @@
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Psikotes Full</title>
+<style>
+body{
+    font-family: Arial;
+    background:#f4f6f9;
+    padding:20px;
+}
+.container{
+    max-width:900px;
+    margin:auto;
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+h2{text-align:center;}
+.progress{
+    text-align:center;
+    margin-bottom:10px;
+    font-weight:bold;
+}
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+td,th{
+    border-bottom:1px solid #ddd;
+    padding:15px;
+}
+.statement{width:60%;}
+.option{text-align:center;}
+.circle{
+    width:20px;height:20px;
+    border:2px solid black;
+    border-radius:50%;
+    display:inline-block;
+    cursor:pointer;
+}
+.selected{background:black;}
+button{
+    width:100%;
+    margin-top:20px;
+    padding:12px;
+    background:#007bff;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+.warning{
+    color:red;
+    text-align:center;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h2>Psikotes Kepribadian</h2>
+<div class="progress" id="progress"></div>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Paling menggambarkan saya</th>
+<th>Tidak menggambarkan saya</th>
+</tr>
+</thead>
+<tbody id="tbody"></tbody>
+</table>
+
+<div class="warning" id="warning"></div>
+<button onclick="nextPage()">Next</button>
+
+</div>
+
+<script>
+
+// ================= DATA SOAL =================
+let raw = `Saya memberikan kontribusi yang berharga untuk kemajuan tim Saya.
+Saya senang ketika rekan kerja mempertimbangkan masukan saya.
+Saya memeriksa ulang kualitas pekerjaan Saya sebelum mempresentasikannya kepada orang lain-
+Saya puas dengan apa pun yang telah saya capai di tempat kerja sejauh ini.
+
+Saya tidak bisa menolak pekerjaan tambahan yang diberikan senior Saya, bahkari Saat saya scdang
+sibuk dengan pekerjaan Iain saat ini.
+Saya dianggap sebagai orang yang rendah hati Oleh rekan kerja Saya.
+Tindakan Saya didasatkan pada konsekuensi langsung yang dapat di tettlpat ketja,
+Perkembangan diri Saya di tempat kerja bergantung pada langkah-langkah yang Saya ambil,
+
+Sulit bagi saya untok mernahami makna tersirat dalarn sebuah situasi.
+Saya suka bekerja dengan pengawasan yang minimal.
+Saya akan mengakui kesalahan di depan umum.
+Saya tnenutiggu atasan memberi Saya pekerjaan.
+
+Saya lebih Suka rnemiliki kebebasan untuk mengatur jadwal kerja Saya sendiri.
+Saya tidak Suka percakapan yang mengharuskan Saya berpikir terlalu banyak,
+Saya memastikan bahwa saya menyelesaikan tugas sesuai Harapan, meskipun itu memerlukan kerja
+Saya tidak Suka merenc_anakan sesuatu di awal,
+
+Saya Suka terlibat dalarn beberapa aktivitas di ternpat keria.
+Saya dapat dengan mudah menebak apa yang dirasakan orang Iain,
+Ketika menghadapi ketidakpastian, saya tidak mengharapkan Hasil yang baik.
+Saya lebih Suka rnengikuti arahan Orang lain.
+
+Saya secara aktif mencari pekerjaen yang menantang di tempat kerja.
+Saya lebih baik bekerja sendiri daripada bekerja bersama orang lain.
+Saya lebih Suka mengerjakan satu tugas dalam satu waktu.
+Saya lebih Suka risiko daripada kebosanan.
+
+Saya Suka rnembuat keputus.an berdasarkan firasat Saya,
+Berteori tentang konsep-konsep yang rumit adalah salah satu kualitas terkuat saya,
+Saya tidak menyinggung prestasi saya saat membicarakan diri saya sendiri.
+Saya me-nghindari terlibat dalam berisiko tinggi berpotensi menghasilkan
+keuntungan yang tinggi juga•
+
+Saya mampu meyakinkan orang lain untuk rnenerima sudut Pandang Saya.
+Saya lebih suka menunggu, danpada mengambil inisiatif dalam situasi baru,
+Jika saya merasa ada Bagian dari prosedur standar yang tidak penting, saya akan melewatinya.
+Saya Suka mengendalikan sequala sesuatu di tempat ketja.
+
+Saya orang yang berorientasi pada hasil,
+Saya lebih suka membuat keputusan berdasarkan data.
+Sulit bagi saya untuk memahami kebutuhan orang lain.
+Saya menghindari percakapan dengan seseorang yang memiliki pandangan berbeda dengan Saya.
+
+Rekan kerja saya melihat saya sebagai individu yang rendah hati.
+Terkadang saya perlu dorongan untuk mulai mengerjakan suatu tugas.
+Saya mampu mencapai Hasil yang luar Biasa dalam pekerjaan saya_
+Saya lebih Suka lingkungan ketja yang santai.
+
+Saya membiarkan emosi menuntun saya dalam membuat keputusan.
+Saya suka bevrliskusi dengan rekan kerja yang memiliki nilai-nilai yang berbeda dengan saya.
+Saya merasa tidak siap menghadapi perubahan keadaan.
+Saya merasa percaya diri Saat berbicara dengan berbagai pemangku kepentingan di tempat kerja.
+
+Saya tidak selalu mengharapkan hasil terbaik di tempat kerja.
+Saya cenderung tetap tenang dalam menghadapi ketidakpastian di tempat kerja,
+Saya orang yang percaya dirim
+Saya tidak Suka berintetaksi dengan orang asing.
+
+Saya Secara teratur menindaklanjuti pengerjaan tugas yang ada untuk rnemastikan penyelesaian
+yang sesuai dengan tenggat waktu yang ditentukan,
+Saya membantu rekan kerja, bahkan saat sedang sibuk dengan pekerjaan yang ada.
+Saya kehilangan minat ketika betdiskusi tentang subjek yang
+Sa a ra u untok men akui te
+
+Saya memberikan kontribusi yang berharga untuk kernajuan tirr Saya,
+Saya kehilangan minat saat orang lain membahas topik yang rumit.
+Saya selalu meluangkan waktu untuk membantu rekan kerja Saya, bahkan saat saya sibuk dengan
+pekerjaan yang ada.
+Ketidakpastian membuat saya merasa khawatir.
+
+Saya menetapkan target yang menantang bagi diri saya sendiri.
+Saya tidak keberatan duduk diam tanpa tugas apa pun di tempat kerja.
+Saya merencanakan pekerjaan saya dengan pandangan jangka panjang.
+Saya tidak merasa percaya diri Saat membagikan hasil ketja saya dengan orang lain.
+
+Saya lebih emosional daripada rasicnal,
+Tidak mudah bagi saya untuk menyampaikan pendapat saya kepada orang lain,
+Saya peka terhadap perasaan orang lain di tempt kerja.
+Saya lebih Suka pekerjaan kesalahati meskiputi terkadarig
+tertunda dari yang dicanangkan sebelumnya.
+
+Saya lebih Suka tugas yang ' rnudah disclesaikan• daripada yang •sulit tetapi rncmuaskan•.
+Saya menunggu orang lain selesai berbicara sebelum menyampaikan pendapat saya,
+Saya berusaha keras untuk membantu orang lain.
+Saya ragu dengan kernampuar Saya.
+
+Saya Suka bersikap santai di tempat kerja,
+Saya senang berbagi pengakuan yang Saya terima di tempat ketja dengan teman-teman Saya yang
+juga pantas menerimanya.
+Saya metietapkan tujuati bulanan untuk membantu mencapai tujuati tahunan Saya,
+Saya seorang yang selalu optimis,
+
+Saya lebih Suka rnenolong diri sendiri daripada menolong orang lain,
+Saya akan menentang argumen yang salah meskipun itu datang dari orang yang lebih senior di
+kantor.
+Saya Suka ada yang niengawasi pekerjaan Saya,
+Saya tidak bisa meninggalkan tugas sampai tugas tersebut diselesaikan.
+
+Saya menolong orang lain hanya ketika mereka meminta pertolonqan Saya.
+Saya menikmati tempo yang lambat di tempat kerja.
+Saya lebih Suk. membicarakan prestasi orang lain daripada prestasi saya sendiri.
+Saya memandang risiko sebagai peluang.
+
+Saya metasa lebih penting untuk menikmati hidvp daripada berusaha keras untuk mencapai tujuan.
+Saya merasa hasil pekerjaan saya menjadi lebih baik dengan melibatkan orang lain.
+Saya tidak keberatan melanggar aturan jika perlu-
+Mengambil tanggung jawab atas situasi tertentu adalah hal yang natural bagi Saya.
+
+Saya pandei menyampaikan informasi dengan cara yang rneyakinkan.
+Saya percaya bahwa kesalahan dalam hasil pekerjaan tidak menjadi masalah selama pekerjaan
+tersebut diselesaikan tepat waktu.
+Saya mengikuti pedomati yang ketat Saat meagerjakan tugas Saya.
+Saya tidak Suka memimpin orang lain di tempat
+
+Saya menolong terutama kepada mercka yang telah menolong Saya,
+Saya merasa senang ketika orang Iain membicarakan keberhasilan saya
+Mudah bagi saya untuk menjalin hubungan dengan orang asing.
+Saya percaya bahwa Orang•ofang merniliki niat baik.
+
+Saya tidak membiarkan emosi memengaruhi penilaian Saya.
+Hidup saya diatur Oleh prinsip-prinsip etika yang ketat.
+Saya Suka arahan berkelanjutan dari atasan Saya.
+Saya lebih Suka menghindari mengambil risiko di tempat kerja.
+
+Saya metasa sulit bekerja keras untuk mencapai sebuah hasil yang kernungkinan hanya Saya bisa
+dapatkan di masa mendatang,
+S4Tca berhasil menerima peruhhan-perubahan yang berkaitan dengan peran di tempat kerja.
+Saya menyusun rencana mitigasi apabila sebuah risikC terjadi dan trtenyesuaikannya dengan
+kebutuhan_
+Saya merasa sulit untuk tetap berharap saat berada di Bawah tekanan.
+
+Saya metasa sulit untuk mengatakan tidak kepada seseorang,
+Saya tidak suka bekerja di bawah hierarki yang ketat di tempat kerja.
+Saya tidak secara terang-terangan menunjukkan bakat yang saya miliki.
+Saya tidak menyukai perubahan besar di ternpat kerja.
+
+Saya tidak berkomprorni dalam hal etika,
+Saya suka ketika mendapatkan perhatian atas prestasi saya.
+Saya mernbiarkan situasi yang membuat stres di tempat kerja memengaruhi saya di luar.
+Saya mengikuti aturari dan SC-Cara
+
+Saya ragu terhadap klaim atau pernyataan yang tidak didukung Oleh data.
+Membaca orang lain dalam sehuah percakapan tidaklah mudah bagi saya.
+Saya senang menjadi Bagian dari diskusi yang memancing munculnya pemikiran-pemikiran baru-
+Saya menghindari berteman dengan orang yang berbeda dengan Saya.
+
+Saya menjadi tidak fokus ketika orang lain berbicara.
+Ketika seseorang bersikap tidak adil di tempat kerja, saya akan mengatakan langsung kepadanya,
+Saya jarang meminta masukan dari orang lain.
+Mengidentifikasi peluang adalah salah satu kekuatan Saya.
+
+Saya rnemulai pernbicaraan tentang Cara baru yang dapat diterapkar di tempat kerja.
+Saya tidak nyaman dalam acara besar yang tujuannya untuk bersosialisasi.
+Saya senang bertanggung jawab atAS situasi di tempat kerja-
+Saya percaya bahwa orang-orang pada urnurnnya tidak jujur.
+
+Saya lebih menghargai pencapaian kelompok daripada pencapaian individu-
+Saya senang mengerjakan beberapa pekerjaan secara betsamaan,
+Saya cenderung memperhatikan hal-hal lain saat mengerjakan tugas yang seeang saya kerjakan.
+Ketika dihadapkan pada keadaan sulit di tempat kerja, Saya cendetung khawatit.
+
+Saya tidak dapat rnenangani beberapa togas dalam waktu yang Sarna.
+Saya menghindari membaca sesuatu dengan topik yang rumit,
+Saya memperhatikan detail kecil di tempat kerja untuk menghindari kesalahan.
+Saya yakin dapat mettyelesaikan togas apa pun yang dibetikan kepada Saya.
+
+Saya memiliki tujuan yang jelas terkait apa yang ingin saya Capai dalam hidup-
+Bagi Saya. segala sesuatunya tidak pernah berjalan sesuai keinginan Saya.
+Menurut Saya, mengambil risiko bukanläh hal yang bij•ksana.
+Saya mengikuti prosedur standar Saat menyelesaikan tugas.
+
+Saya tidak nyarnan ketika perhatian tertuju pada keberhasilan Saya.
+Saya merasa sulit menghadapi kegagalan di tempat kerja,
+Saya percaya akan pentingnya membelä apa yang benar.
+Saya lebih Suka pekerjaan yang tidak terlalu menantang.
+
+Saya bersemangat dengan kemungkinan untuk rncnerima lebih banyak pekerjaan.
+Saya lebih Suka bersama orang-orang yang memiliki pandangan yang Sama,
+Saya meragukan kemampuan saya secara terus menerus.
+Saya kebetsamaan dengan lain memberikan energi.
+
+Saya lebih sake lingkungan kerja yang bergerak lambat.
+Saya senang menerima pengakuan aras prestasi saya.
+Saya senang memimpin setiap tugas di tempat kerja.
+Saya merasa bahwa orang-orang jujur,
+
+Saya secara efektif beradaptasi dengan tugas•tugas delam pekerjaan yang sering beru bah.
+Saya cocok dengan orang-orang yang pandangannya herbeda dengan saya.
+Saya merasa sulit untuk pulih dari kegagalan di tempat kerja_
+Menurut saya, tidak selalu penting untuk mengikuti peraturan di tempat ketja secara ketat.
+
+Ketika Saya ingir rnenyampaikan svatu hat, sulit bagi saye untuk menunggu orang lain selesai
+berbicara.
+Saya tidak pandai menyampaikan pemikiran Saya dengan tegas.
+Saya menikmati mengerjakan ide-ide yang menurut orang lain konseptual.
+Saya tidak pernah menyerah mengerjakan tugas, tidak peduli seberapa membosankannya togas
+tersebut-
+
+Saya lebih Suke bekerja sendiri.
+Saya merasa bahwa seseorang tidak boleh membanggakan kemampuan mereka.
+Ketidakpastian membuat saya merasa tidak nyaman-
+Saya lebih Suka menjadi pernimpin dalarn kelompok daripada rrengikuti orang lain.
+
+Saya tidak bisa bekerja di Bawah seseOrang yang mengawasi pekerjaan Saya dengari
+Saya orang yang mudah meyakinkan orang lain,
+Saya lebih suke bekerja di organisasi yang tidak mudah terpengaruh Oleh perubahan terkait
+pekerjaan,
+Saya memandang diri Saya sebagai orang yang enggan mengambil risiko,
+
+Saya mengandalkan atasan saya untuk mengelola kualitas pekerjaan Saya.
+Saya membuat perubahar pada pekerjaan saya saat ini sesuai dengan implikasinya di masa
+mendatang.
+Saya dengan percaya diri menyampaikan pekerjaan saya dalam rapat.
+Saya menghindari bersosialisasi di acara kantar.
+
+Saya hanya rnembantu orang lain s.aat Saya diminta untuk melakukannya.
+Saya mendorong orang lain untuk memberi Saya masukan di tempat kerja,
+Saya suka membicarakan prestasi Saya.
+Saat tidak yakin tentang sesuatu di tempat kerja, Saya tetap bersikap positif.
+
+Saya Suka ketika atasan Saya mendelegasikan tugas yang lebih mudah kepada Saya,
+Saya lebih suka pekerjaan yang segala sesuatunya bergerak cepat,
+Saya suka diberi arahan di ternpat kerjä.
+Saya Sering digarnbarkan Sebagai orang yang memiliki inisiatif untuk memulai sesuatu.
+
+Saya cenderung mendesak orang lain untuk berbicara lebih cepat.
+Saya dapat menyampaikan ketidaksetujuan saya dengan rekan kerja dengan cara yang ramah.
+Saya lebih suka memperpanjang tenggat waktu daripada memberikan pekeriaan yang kualitasnya
+rendah.
+Saya tidak menggunakan catatan terstruktur untuk mengatur togas-tugas Saya.
+
+Saya tetap jujur, rneskipur•. itu tidak menyenangkan bagi Saya,
+Saya menikmati rutinitas harian di tempat kerja di mana saya tidak perlu mempelajali hal-hal baru,
+Saya merasa sulit meyakinkan orang lain.
+Saya lebih Suka tugas yang ada Saat ini, bahkan jika ada lain yang lebih
+menarik,
+
+Saya tidak membiarkan pekerjaan baru mengalihkan perhatian Saya dari tugas yang Sedang saya
+kerjakan.
+Saya menyiapkan daftar tugas harian di tempat ketja untuk membantu memprioritaskar tugas-
+tugas Saya.
+Saya lebih Suka diarahkan daripada memberi arahan,
+Saya merasa bahwa •rang-orang tidak tulus-
+
+Saya mulai berbicara sebclum orang lain selesai berbicara,
+Saya merasa nyaman menyampaikan pendapat saya meskipun berbeda dengan pendapat anggota
+tim läinnya.
+Kritik Saya berkernbang,
+Saya merasa sulit untuk memprioritaskan tugas-tugas Saya.
+
+Saya dapat menyarnpaikan pikiran positif dan negatif di tempt kerja tarpa ragu•ragu.
+Mudah bagi saya untuk merasakan keadaan emosi orang Iain,
+Saya berjuang untuk beradaptasi dengan perubahan-perubahan pada menit-menit terakhir
+Lebih penting rnenyelesaikan pekerjaan tepat waktu daripada berusaha rryencapai standar yang
+tinggi.
+
+Sulit bagi Saya untuk mcncrirna kritik di tempat kerja,
+Saya pandai dalam memengaruhi orang untok mengubah perspektif mereka,
+Saya menikmati penelaahan yang mendalam atas sebuah permasalahan yang luas.
+Saya cenderung mengabaikan detail-detail kecil.
+
+Saya mencapai hasil yang lebih optimal ketika bekerja sebagai bagian dari tim dibandingkan Saat
+bekerja sendiri,
+Saya senang menerima penghargaan at—s pekerjaan yang telah saya Iakukan.
+Saya Suka beketja dengan orang•otang yang memiliki kesamaati dengati Saya.
+Saya menikmati suasana dari pertemuan untuk bersosiali5asi dalam Skala besar.
+
+Saya rnenentang tindakan tidak etis orang lain,
+Saya membutuhkan waktu untuk beradaptasi dengan situasi baru,
+Saya punya strategi yang efektif untuk mengatasi stres.
+Saya percaya bahwa Orang-ofang Cenderung tidak adil.
+
+Saya cenderung bertindak berdasarkan dorongan hati,
+Saya kurang efisien Saat beketja dengan orang lain,
+Saya membela apa yang benar dan akan menantang mereka yang tidak melakukannya, meskipun
+tnereka lebih senior.
+Saya memantau aktivitas kerja berdasarkan rencana yang dan mengambil tindakan perbaikan
+epabila diperluk•n.
+
+Saya metasa canggung ketika diminta untuk mengungkapkan sudut pandang yang kritis,
+Saya menikmati memecahkan masalah rumit yang tidak didefinisikan dengan baik,
+Saya merencanakan pekerjaan secara efektif menggunakan ukuran-ukuran pencapäian untuk
+memantau keberhasilan,
+Saya metasa tidak berdaya saat menghadapi kegagalan di tempat kerja,`;
+
+// ================= AUTO SPLIT =================
+let questions = raw.split("\n").filter(q => q.trim() !== "");
+
+// ================= CONFIG =================
+let perPage = 4;
+let currentPage = 0;
+let selectedBest = null;
+let selectedWorst = null;
+
+// ================= RENDER =================
+function render(){
+    let tbody = document.getElementById("tbody");
+    tbody.innerHTML = "";
+
+    let start = currentPage * perPage;
+    let pageQ = questions.slice(start, start + perPage);
+
+    document.getElementById("progress").innerText =
+        `Halaman ${currentPage+1} / ${Math.ceil(questions.length/perPage)}`;
+
+    pageQ.forEach((q,i)=>{
+        let row = document.createElement("tr");
+
+        row.innerHTML = `
+        <td class="statement">${q}</td>
+        <td class="option"><div class="circle" onclick="select(${i},'best',this)"></div></td>
+        <td class="option"><div class="circle" onclick="select(${i},'worst',this)"></div></td>
+        `;
+
+        tbody.appendChild(row);
+    });
+}
+
+// ================= SELECT =================
+function select(i,type,el){
+
+    if(type === 'best'){
+        document.querySelectorAll("td:nth-child(2) .circle")
+            .forEach(c=>c.classList.remove('selected'));
+
+        selectedBest = i;
+        el.classList.add('selected');
+    }
+
+    if(type === 'worst'){
+        document.querySelectorAll("td:nth-child(3) .circle")
+            .forEach(c=>c.classList.remove('selected'));
+
+        selectedWorst = i;
+        el.classList.add('selected');
+    }
+}
+
+// ================= NEXT =================
+function nextPage(){
+
+    if(selectedBest === null || selectedWorst === null){
+        document.getElementById("warning").innerText =
+        "Wajib pilih 1 paling dan 1 tidak.";
+        return;
+    }
+
+    if(selectedBest === selectedWorst){
+        document.getElementById("warning").innerText =
+        "Tidak boleh pilih pernyataan yang sama.";
+        return;
+    }
+
+    // reset
+    selectedBest = null;
+    selectedWorst = null;
+    document.getElementById("warning").innerText = "";
+
+    currentPage++;
+
+    if(currentPage >= Math.ceil(questions.length/perPage)){
+        alert("Selesai semua soal!");
+        return;
+    }
+
+    render();
+}
+
+// INIT
+render();
+
+</script>
+
+</body>
+</html>
+```
