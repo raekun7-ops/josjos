@@ -395,7 +395,7 @@ function loadState() {
 // Panduan: https://console.firebase.google.com → buat project → Realtime Database → Rules: buat publik atau pakai auth
 const FIREBASE_CONFIG = {
   // WAJIB DIISI: URL Realtime Database Anda, format: https://<project-id>-default-rtdb.firebaseio.com
-  dbUrl: "https://laporan-margasari-default-rtdb.firebaseio.com"
+  dbUrl: "https://laporan-margasari-default-rtdb.asia-southeast1.firebasedatabase.app/"
 };
 
 let _cloudSaveTimer = null;
