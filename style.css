@@ -344,19 +344,25 @@ button:hover {
 
 .table-wrap {
   width: 100%;
-  overflow-x: auto;
+  overflow-x: hidden;
   border: 1px solid var(--theme-line);
   border-radius: 8px;
   background: white;
 }
 
 .report-table {
-  width: max-content;
+  width: 100%;
   min-width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  table-layout: auto;
+  table-layout: fixed;
   background: white;
+}
+
+.report-table th,
+.report-table td {
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 /* ── MOBILE: tabel menyatu dengan halaman, tidak ada scroll geser ── */
@@ -623,50 +629,50 @@ button:hover {
 }
 
 .col-no {
-  min-width: 72px;
+  width: 4%;
 }
 
 .col-mantri {
-  min-width: 162px;
+  width: 12%;
 }
 
 .col-nasabah {
-  min-width: 285px;
+  width: 18%;
 }
 
 .loan-head {
-  min-width: 305px;
+  width: 14%;
   position: relative;
 }
 
 .loan-subhead {
-  min-width: 105px;
+  width: 8%;
 }
 
 .loan-subhead:nth-child(even),
 .os-cell {
-  min-width: 220px;
+  width: 8%;
 }
 
 .deb-cell {
-  min-width: 92px;
+  width: 8%;
 }
 
 .col-total,
 .total-cell {
-  min-width: 205px;
-  white-space: nowrap;
+  width: 12%;
+  white-space: normal;
 }
 
 .col-total-deb,
 .total-deb-cell {
-  min-width: 320px;
-  white-space: nowrap;
+  width: 10%;
+  white-space: normal;
 }
 
 .col-amkkm,
 .col-brins {
-  min-width: 170px;
+  width: 8%;
 }
 
 .loan-title {
