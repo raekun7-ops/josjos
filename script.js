@@ -631,7 +631,7 @@ async function loadUnitSettings() {
   return unitSettings;
 }
 
-function getAmkkmRate() {
+function () {
   return (unitSettings && unitSettings.amkkm) ? Number(unitSettings.amkkm) : 0;
 }
 
@@ -641,7 +641,7 @@ function getBrinsRate() {
 
 // ── Modal setting nominal AMKKM / BRINS ──
 function showAmkkmBrinsSettings() {
-  const currentAmkkm = getAmkkmRate();
+  const currentAmkkm = ();
   const currentBrins = getBrinsRate();
   const unitLabel = (UNITS[currentUnit]?.starterData?.title || currentUnit).toUpperCase();
 
@@ -926,10 +926,10 @@ function renderHeader() {
     <th class="col-total" rowspan="${staticRowspan}"><span class="head-label">Total OS</span></th>
     <th class="col-total-deb" rowspan="${staticRowspan}"><span class="head-label">Total DEB</span></th>
     <th class="col-amkkm" rowspan="${staticRowspan}">
-      <span class="head-stack"><span class="head-icon shield-icon" aria-hidden="true"></span><span class="head-label">AMKKM <small>(Asuransi)</small>${getAmkkmRate() ? `<br><span style='font-size:0.7em;opacity:0.8;font-weight:700'>Rp ${formatRupiah(getAmkkmRate())}/DEB</span>` : ''}</span></span>
+      <span class="head-stack"><span class="head-icon shield-icon" aria-hidden="true"></span><span class="head-label">AMKKM <small>(Asuransi)</small>
     </th>
     <th class="col-brins" rowspan="${staticRowspan}">
-      <span class="head-stack"><span class="head-icon shield-icon" aria-hidden="true"></span><span class="head-label">BRINS <small>(Asuransi)</small>${getBrinsRate() ? `<br><span style='font-size:0.7em;opacity:0.8;font-weight:700'>Rp ${formatRupiah(getBrinsRate())}/DEB</span>` : ''}</span></span>
+      <span class="head-stack"><span class="head-icon shield-icon" aria-hidden="true"></span><span class="head-label">BRINS <small>(Asuransi)</small>
     </th>
     ${(state.dhColumns || []).map((dhName, dhIdx) => `
       <th class="col-dh" rowspan="${staticRowspan}" style="min-width:160px;position:relative;">
