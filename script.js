@@ -2169,3 +2169,12 @@ function autoScrollToCenter() {
   }
   setTimeout(doScroll, 500);
 }
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    window.scrollTo({
+      top: 0,
+      left: document.body.scrollWidth / 2,
+      behavior: "instant"
+    });
+  }, 100);
+});
